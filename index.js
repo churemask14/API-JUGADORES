@@ -1,9 +1,10 @@
 'use strict'
 
+
 const express = require ('express');    
 var app = express();
 var cors = require ('cors');
-const port = process.env.PORT || 3001;
+//const port = process.env.PORT || 3001;
 const bodyParser = require ('body-parser');
 let playercontroller = require("./controllers/playercontroller");
 var error = require ('./helper/error_handler');
@@ -16,6 +17,15 @@ app.use(cors())
 // cors me permite recibir un request desde otros dominios diferentes al mio
 app.use (error);
 app.use ("/players", playercontroller);
+var port;
+
+if (process.env.NODE_ENV === 'production'){
+    port  = process.env.PORT;
+}   else {
+    port = 3001;
+}    
+
+
 app.listen (port, () =>{
     console.log(`api rest corriendo en http://localhost:${port}`)
 }); 

@@ -12,6 +12,7 @@ mongoose.connect('mongodb://matias:matute0294@ds147684.mlab.com:47684/heroku_tr4
 
         { useNewUrlParser: true }
         { useUnifiedTopology: true }
+        mongoose.set('useFindAndModify', false);
 });
     
 //mongodb://heroku_tr4k0q2d:1ebaiu3ak313512945t17t8al0@ds147684.mlab.com:47684/heroku_tr4k0q2d

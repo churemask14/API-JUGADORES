@@ -1,6 +1,10 @@
+module.exports = errorHandler;
+
 function errorHandler(err, req, res, next) {
     console.log("Ingreso a manejo de errores");
     console.log(err);
+
+    
     if (typeof (err) === 'string') {
         // Errores de la aplicacion
         return res.status(400).json({ message: err }); 
@@ -11,13 +15,8 @@ function errorHandler(err, req, res, next) {
         return res.status(400).json({ message: err.message });
     }
 
-    if (err.name === 'UnauthorizedError') {
-        // Error de Autorizacion de JWT
-        return res.status(401).json({ message: 'Invalid Token' });
-    }
-
     if (err.name === 'CastError') {
-        return res.status(400).json({ message: "ID tene formato invalido" });
+        return res.status(404).json({ message: "jugador no encontrado" });
         //return res.status(400).json({ message: err.message });
     }
 
@@ -25,13 +24,22 @@ function errorHandler(err, req, res, next) {
        return res.status(err.status_code).json({ message: err.message });
     }
 
-    if (err.name === "Forbidden") {
-        return res.status(403).json({ message: err.message });
-    }
 
     // Error por defecto del servidor
     return res.status(500).json({ message: err.message });
 }
 
 
-module.exports = errorHandler;
+
+/*
+try{
+    let p = await playerservice.updateplayer(req.params.id, req.body);
+    res.status(200).json(p)
+}catch(err){
+    console.error(err);
+    if (err.name ==="CastError"){
+        res.status(400).json(err);
+    }
+    res.status(500).json(err);
+}
+}); */

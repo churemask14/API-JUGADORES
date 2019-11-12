@@ -16,8 +16,11 @@ const superagent = require('superagent')
     
 
 async function getByIdTeam (id){
-    //return await superagent.get('http://10.0.4.135:5000/team/'+ id, {json:true}); 
-    return await superagent.get('https://murmuring-castle-20672.herokuapp.com/team/'+ id, {json:true}); 
+
+    let response = await superagent.get('http://192.168.0.149:5000/team/'+ id); 
+    let equipo = JSON.parse(response.text);
+    return equipo;
+    //return await superagent.get('https://murmuring-castle-20672.herokuapp.com/team/'+ id, {json:true}); 
 }
 
 module.exports= {

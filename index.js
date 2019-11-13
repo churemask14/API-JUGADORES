@@ -8,6 +8,7 @@ const bodyParser = require ('body-parser');
 let playercontroller = require("./controllers/playercontroller");
 var errorHandler = require ('./helper/error_handler');
 
+
 app.use(bodyParser.urlencoded ({extended: false}));
 app.use(bodyParser.json());
 //con esto digo que el formato a usar es json

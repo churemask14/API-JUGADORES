@@ -61,7 +61,7 @@ async function getById (id){
     console.log('llego3');
     if (!playerDb) throw 'Jugador no encontradoooo';
     //let team = teamservice.getByIdTeam(playerDb.idteam);
-    let team = await teamservice.getByIdTeam(5);
+    //let team = await teamservice.getByIdTeam(5);
     
     console.log('llego 2'); 
     

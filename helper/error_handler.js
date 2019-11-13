@@ -24,6 +24,10 @@ function errorHandler(err, req, res, next) {
        return res.status(err.status_code).json({ message: err.message });
     }
 
+    if (err.name === "Not Found"){
+        return res.status(404).json({ message: err.message });
+    }
+
 
     // Error por defecto del servidor
     return res.status(500).json({ message: err.message });

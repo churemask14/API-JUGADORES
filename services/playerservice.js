@@ -59,9 +59,9 @@ async function getById (id){
     console.log('llego1'); 
     let playerDb =  await playerModel.findById(id);
     console.log('llego3');
-    if (!playerDb) throw 'Jugador no encontrado';
+    if (!playerDb) throw 'Jugador no encontradoooo';
     //let team = teamservice.getByIdTeam(playerDb.idteam);
-    //let team = await teamservice.getByIdTeam(5);
+    let team = await teamservice.getByIdTeam(5);
     
     console.log('llego 2'); 
     
@@ -94,12 +94,10 @@ async function getById (id){
 
 // funcion delete by id----------------------------------------------------------------------
 async function deleteplayerbyid(_id){
-    let query = {};
-    if(_id)
-        query._id = _id;
 
-    console.log("borrando", query, _id)
-    return await playerModel.deleteOne(query)
+
+    console.log("borrando", _id)
+    return await playerModel.findOneAndDelete({_id})
 }
 
 // funcion updatebyid------------------------------------------------------------------------------------------

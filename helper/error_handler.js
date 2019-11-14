@@ -2,7 +2,7 @@ module.exports = errorHandler;
 
 function errorHandler(err, req, res, next) {
     console.log("Ingreso a manejo de errores");
-    console.log(err);
+
 
     
     if (typeof (err) === 'string') {

@@ -6,7 +6,7 @@ var router = express.Router();
 //Router get-----------------------------------------------------------------------------------
 router.get ("/", (req,res,next) => {
     console.log(req.param);
-    playerservice.getall(req.query._id).
+    playerservice.getallandparams(req.query.nombre, req.query.apellido, req.query.edad, req.query.posicion).
     then ((p)=> {
         if (p){
             res.status (200).json(p);
@@ -57,7 +57,7 @@ router.post ("/", (req,res,next)=> {
 //Router delete------------------------------------------------------------------------------------------
 router.delete ("/:id", (req,res,next) => {
     console.log(req.param);
-    playerservice.deleteplayerbyid(req.query._id).
+    playerservice.deleteplayerbyid(req.params.id).
     then (()=> res.status (200).json({message: "Se borró el jugador correctamente"}))
     .catch((err)=>{
         next(err);

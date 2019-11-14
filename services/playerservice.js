@@ -42,14 +42,27 @@ async function create (playerparam){
 //    return await playerModel.find(query)
 //}
 
-// función get all --------------------------------------------------------------------------------------
-async function getall (_id){
+// función get all y parametros --------------------------------------------------------------------------------------
+async function getallandparams (nombre, apellido, edad, posicion){
     let query = {};
-    if (_id)
-        {
-            query._id = _id;
-        }
-    console.log("buscando", query, _id)
+
+    if (nombre){
+        query.nombre = nombre;
+    }
+
+    if (apellido){
+        query.apellido = apellido;
+    }
+
+    if (edad){
+        query.edad = edad;
+    }
+
+    if (posicion){
+        query.posicion = posicion;
+    }
+
+    console.log("buscando", query, nombre, apellido, edad, posicion)
     return await playerModel.find(query)
 }
 
@@ -59,14 +72,17 @@ async function getById (id){
     console.log('llego1'); 
     let playerDb =  await playerModel.findById(id);
     console.log('llego3');
-    if (!playerDb) throw 'Jugador no encontradoooo';
-    //let team = teamservice.getByIdTeam(playerDb.idteam);
+    if (!playerDb) throw 'Jugador no encontrado';
+
+    console.log(playerDb.idteam);
+
+    let team = teamservice.getByIdTeam(playerDb.idteam);
     //let team = await teamservice.getByIdTeam(5);
     
-    console.log('llego 2'); 
+    
     
     var equipo_jugador = {
-        equipo: 'team[0].nombre',        
+        equipo: team[0].nombre,        
         nombre: playerDb.nombre,
         apellido: playerDb.apellido,
         edad:     playerDb.edad,
@@ -94,10 +110,8 @@ async function getById (id){
 
 // funcion delete by id----------------------------------------------------------------------
 async function deleteplayerbyid(_id){
-
-
     console.log("borrando", _id)
-    return await playerModel.findOneAndDelete({_id})
+    return await playerModel.findByIdAndDelete({_id}, function (err){})
 }
 
 // funcion updatebyid------------------------------------------------------------------------------------------
@@ -134,7 +148,7 @@ async function updateplayer(_id, user){
 
 module.exports= {
     create,
-    getall,
+    getallandparams,
     getById,
 //    deleteplayer,
     updateplayer,

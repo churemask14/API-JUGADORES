@@ -29,7 +29,6 @@ router.get ("/:id", (req,res,next) => {
             res.status (200).json(p);
         } 
     }).catch((err)=> next(err)); 
-      
     
 }) 
 

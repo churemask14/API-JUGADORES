@@ -23,9 +23,25 @@ async function create (playerparam){
         throw 'El apellido es campo obligatorio y tiene que ser un string'
     }
 
+
+
     var player = new playerModel(playerparam);
 
+    console.log(player.idteam)
+
+    playerModel.count({ idteam: player.idteam }, function (err, count) {
+        console.log('there are %d jungle adventures', count);
+        if (count > 5)
+            throw 'diedmxlskdj'
+
+      });
+    
+    
+    console.log("quiero contar")
+
+    
     console.log("Se guardo el nuevo jugador");
+    //console.log(cantidad)
     await player.save();
 }
 
@@ -62,7 +78,7 @@ async function getallandparams (nombre, apellido, edad, posicion){
         query.posicion = posicion;
     }
 
-    console.log("buscando", query, nombre, apellido, edad, posicion)
+    console.log("buscandoooooo", query, nombre, apellido, edad, posicion)
     return await playerModel.find(query)
 }
 
@@ -74,16 +90,17 @@ async function getById (id){
     console.log('llego3');
     if (!playerDb) throw 'Jugador no encontrado';
 
-    console.log(playerDb.idteam);
+    console.log(id);
 
-    let team = teamservice.getByIdTeam(playerDb.idteam);
-    //let team = await teamservice.getByIdTeam(5);
+    //let team = await teamservice.getByIdTeam(playerDb.idteam);
+    //let team = await teamservice.getByIdTeam(15);
     
-    
+    //console.log(team[0]);
     
     var equipo_jugador = {
-        equipo: team[0].nombre,        
-        nombre: playerDb.nombre,
+        //equipo: team[0].nombre,
+        id:       playerDb._id,      
+        nombre:   playerDb.nombre,
         apellido: playerDb.apellido,
         edad:     playerDb.edad,
         posicion: playerDb.posicion
@@ -118,7 +135,7 @@ async function deleteplayerbyid(_id){
 async function updateplayer(_id, user){
     let player =  { nombre: user.nombre, apellido: user.apellido, edad: user.edad, posicion:user.posicion};
     console.log("for update", player);
-
+    /*
     if (typeof (user.edad) != 'number'){
         throw 'La edad es campo obligatorio y tiene que ser valor numérico'
     }
@@ -137,6 +154,8 @@ async function updateplayer(_id, user){
 
     if (!_id)
         throw 'Se necesita un id existente para actualizar'
+    */
+
 
     console.log (typeof (player.edad));
     let playerUpdated = await playerModel.findOneAndUpdate({ _id }, player, {new:true, runValidators: true });

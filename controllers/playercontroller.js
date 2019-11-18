@@ -56,9 +56,10 @@ router.post ("/", (req,res,next)=> {
 //Router delete------------------------------------------------------------------------------------------
 router.delete ("/:id", (req,res,next) => {
     console.log(req.param);
-    playerservice.deleteplayerbyid(req.params.id).
+    playerservice.deleteplayerbyid(req.params._id).
     then (()=> res.status (200).json({message: "Se borró el jugador correctamente"}))
     .catch((err)=>{
+        console.error(err);
         next(err);
     });
 }) 

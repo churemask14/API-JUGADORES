@@ -128,6 +128,8 @@ async function getById (id){
 // funcion delete by id----------------------------------------------------------------------
 async function deleteplayerbyid(_id){
     console.log("borrando", _id)
+    if (!_id)
+        throw 'El id ingresado no existe'
     return await playerModel.findByIdAndDelete({_id}, function (err){})
 }
 
